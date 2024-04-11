@@ -28,3 +28,12 @@ jobs:
       run: npm run test
     - name: Build project
       run: npm run build
+
+    # Deployment step
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: dist # The folder the action should deploy.
+        token: ${{ secrets.GITHUB_TOKEN }} # GitHub automatically creates this secret to authenticate in your workflows.
